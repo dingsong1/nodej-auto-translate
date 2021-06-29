@@ -2,19 +2,14 @@ const translate = require('./google-translate');
 const path = require('path')
 const fs = require('fs')
 const data = require('./data.json');
-// const fs = require('fs');
-// const path = require('path');
 
 const main = async () => {
-  let { text } = await translate({ to: 'en', text: '起飞' })
-  console.warn('我是翻译', text);
   const fileName = 'data.json'
   const languages = ['en', 'es', 'tw', 'id', 'th', 'vi']
   const list = Object.values(data)
   const names = Object.keys(data)
   let translateContent = list.join('\n')
   console.log(translateContent)
-  //const { text } = await translate({ text: translateContent, to: 'en' })
   let result = []
   for (let i = 0; i < languages.length; i++) {
     const currentLanguage = languages[i]
@@ -41,11 +36,3 @@ const main = async () => {
 
 }
 main()
-// translate('我是丁松啊', { to: 'en' }).then(res => {
-//   console.log(res.text);
-//   //=> I speak English
-//   console.log(res.from.language.iso);
-//   //=> nl
-// }).catch(err => {
-//   console.error(err);
-// });
