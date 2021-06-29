@@ -5,17 +5,13 @@
   "main": "main.js",
   "dependencies": {
     "axios": "^0.21.1",
-    "chinese-random-ip": "0.0.5",
-    "google-translate-api": "^2.3.0",
     "he": "^1.2.0",
-    "qs": "^6.10.1",
-    "superagent": "^6.1.0",
-    "superagent-proxy": "^2.1.0"
+    "qs": "^6.10.1"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --trace-warnings main.js "
+    "start": "node main.js "
   },
   "keywords": [],
   "author": "",

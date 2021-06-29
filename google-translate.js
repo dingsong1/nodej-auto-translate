@@ -1,8 +1,29 @@
-const axios = require('axios')
+
 const qs = require('qs')
 const he = require('he')
-
+const userAgents = require('./userAgent')
 const GOOGLE_TRANSLATE_URL = 'https://translate.google.cn/translate_a/single'
+const axios = require('axios')
+
+//构造请求头-ip
+function returnIp () {
+  return (
+    Math.floor(Math.random() * (10 - 255) + 255) +
+    "." +
+    Math.floor(Math.random() * (10 - 255) + 255) +
+    "." +
+    Math.floor(Math.random() * (10 - 255) + 255) +
+    "." +
+    Math.floor(Math.random() * (10 - 255) + 255)
+  );
+}
+
+//构造请求头-浏览器
+function randomHead () {
+  return userAgents[
+    Math.floor(Math.random() * (0 - userAgents.length) + userAgents.length)
+  ];
+}
 
 const genToken = (a) => {
   const d = 406644
@@ -153,12 +174,17 @@ module.exports = async (params = {}) => {
     tk: genToken(decodedText),
     q: decodedText,
   }
-
   const res = await axios.post(
     GOOGLE_TRANSLATE_URL,
     qs.stringify(data, {
       arrayFormat: 'repeat',
-    })
+    }),
+    {
+      headers: {
+        "User-Agent": randomHead(),
+        "X-Forwarded-For": returnIp(),
+      },
+    }
   )
 
   const result = await normalize(res.data, {

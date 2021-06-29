@@ -2,26 +2,29 @@ const translate = require('./google-translate');
 const path = require('path')
 const fs = require('fs')
 const data = require('./data.json');
-
 const main = async () => {
+
+
   const fileName = 'data.json'
-  const languages = ['en', 'es', 'tw', 'id', 'th', 'vi']
+  const languages = ['en', 'es', 'zh-tw', 'id', 'th', 'vi']
   const list = Object.values(data)
   const names = Object.keys(data)
-  let translateContent = list.join('\n')
-  console.log(translateContent)
   let result = []
   for (let i = 0; i < languages.length; i++) {
     const currentLanguage = languages[i]
-    let translateContent = list.join('\n')
-    let { text } = await translate({ to: currentLanguage, text: translateContent })
-    text = text.split('\n')
-    let translateBefore = {}
-    for (let j = 0; j < names.length; j++) {
-      const name = names[j]
-      translateBefore[name] = text[j]
+    try {
+      let { text } = await translate({ to: currentLanguage, text: list.join('\n') })
+      text = text.split(' ')
+      let translateBefore = {}
+      for (let j = 0; j < names.length; j++) {
+        const name = names[j]
+        translateBefore[name] = text[j]
+      }
+      result.push({ translate: translateBefore, name: currentLanguage })
+    } catch (err) {
+      console.log(err)
     }
-    result.push({ translate: translateBefore, name: currentLanguage })
+    console.log('第' + i + '次', result)
   }
   console.log(result)
   for (let i = 0; i < result.length; i++) {
@@ -34,5 +37,8 @@ const main = async () => {
     })
   }
 
+}
+function sleep (delay) {
+  for (var t = Date.now(); Date.now() - t <= delay;);
 }
 main()
