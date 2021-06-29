@@ -3,8 +3,6 @@ const path = require('path')
 const fs = require('fs')
 const data = require('./data.json');
 const main = async () => {
-
-
   const fileName = 'data.json'
   const languages = ['en', 'es', 'zh-tw', 'id', 'th', 'vi']
   const list = Object.values(data)
@@ -26,7 +24,7 @@ const main = async () => {
     }
     console.log('第' + i + '次', result)
   }
-  console.log(result)
+
   for (let i = 0; i < result.length; i++) {
     const currentTranslators = result[i]
     const newFileName = path.join(__dirname, `/output/${currentTranslators.name}-${fileName}`)
