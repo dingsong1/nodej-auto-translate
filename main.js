@@ -22,7 +22,10 @@ const main = async () => {
     } catch (err) {
       console.log(err)
     }
-    console.log('第' + i + '次', result)
+    console.log('第' + i + '次')
+  }
+  if (!fs.existsSync(path.join(__dirname, '/output'))) {
+    fs.mkdirSync(path.join(__dirname, '/output'))
   }
 
   for (let i = 0; i < result.length; i++) {

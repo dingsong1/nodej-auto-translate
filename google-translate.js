@@ -1,7 +1,7 @@
 
 const qs = require('qs')
 const he = require('he')
-const GOOGLE_TRANSLATE_URL = 'https://translate.google.com/translate_a/single'
+const GOOGLE_TRANSLATE_URL = 'https://translate.google.cn/translate_a/single'
 const axios = require('axios')
 // axios.defaults.timeout = 3000;
 const genToken = (a) => {
@@ -157,10 +157,7 @@ module.exports = async (params = {}) => {
     GOOGLE_TRANSLATE_URL,
     qs.stringify(data, {
       arrayFormat: 'repeat',
-    }),
-    {
-
-    }
+    })
   )
 
   const result = await normalize(res.data, {
